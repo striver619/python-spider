@@ -16,6 +16,17 @@
 
 ### 🏠 [Homepage](home)
 
+## Prerequisites
+
+- python3
+- scrapy
+    [Scrapy 框架入门简介](https://segmentfault.com/a/1190000013178839/)
+    
+    ![image](https://image-static.segmentfault.com/8c/59/8c591d54457bb033812a2b0364011e9c_articlex)
+
+
+
+
 ## Install
 
 ```sh
