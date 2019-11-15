@@ -38,7 +38,7 @@ mysql-connector-python==8.0.17
 mysqlclient==1.4.4
 networkx==2.3
 numpy==1.16.2
-nvidia-ml-py3==7.352.1
+
 opencv-python==4.1.1.26
 parsel==1.5.2
 pathlib==1.0.1
