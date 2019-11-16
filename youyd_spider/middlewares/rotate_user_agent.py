@@ -4,7 +4,9 @@ from fake_useragent import UserAgent
 
 logger = logging.getLogger(__name__)
 
-
+'''
+随机代理中间件
+'''
 class RandomUserAgentMiddleware(object):
     def __init__(self, crawler):
         super(RandomUserAgentMiddleware, self).__init__()
@@ -27,8 +29,7 @@ class RandomUserAgentMiddleware(object):
             proxy = request.meta.get('proxy')
             if proxy not in self.proxy2ua:
                 self.proxy2ua[proxy] = get_ua()
-                logger.debug('Assign User-Agent %s to Proxy %s'
-                             % (self.proxy2ua[proxy], proxy))
+                logger.debug('Assign User-Agent %s to Proxy %s' % (self.proxy2ua[proxy], proxy))
             request.headers.setdefault('User-Agent', self.proxy2ua[proxy])
         else:
             ua = get_ua()
