@@ -7,12 +7,16 @@ from scrapy.exporters import JsonItemExporter
 from twisted.enterprise import adbapi
 import pymysql
 from w3lib.html import remove_tags
+import logging
 
 from youyd_spider.models.models import Article
 
 """
 项目管道文件，如：一般结构化的数据持久化
 """
+
+
+logger = logging.getLogger(__name__)
 
 class YouydSpiderPipeline(object):
     def process_item(self, item, spider):
@@ -95,16 +99,22 @@ class JsonExporterPipleline(object):
     调用scrapy提供的json export导出json文件
     """
     def __init__(self):
+
+        print("JsonWithEncodingPipeline：自定义json导出__init__")
         self.file = open('articleexport.json', 'wb')
         self.exporter = JsonItemExporter(self.file, encoding="utf-8", ensure_ascii=False)
         self.exporter.start_exporting()
 
     def close_spider(self, spider):
+
+        print.info("spider_closed：关闭爬虫")
         self.exporter.finish_exporting()
         self.file.close()
 
     def process_item(self, item, spider):
         self.exporter.export_item(item)
+
+        print.info("process_item：执行写入操作")
         return item
 
 
