@@ -8,6 +8,7 @@ from twisted.enterprise import adbapi
 import pymysql
 from w3lib.html import remove_tags
 import logging
+from openpyxl import Workbook
 
 from youyd_spider.models.models import Article
 
@@ -22,18 +23,58 @@ class YouydSpiderPipeline(object):
     def process_item(self, item, spider):
         return item
 
-class JsonWithEncodingPipeline(object):
+
+class JsonExporterPipleline(object):
     """
-        自定义json文件的导出
+    调用scrapy提供的json export导出json文件
     """
     def __init__(self):
-        self.file = codecs.open('article.json', 'w', encoding="utf-8")
-    def process_item(self, item, spider):
-        lines = json.dumps(dict(item), ensure_ascii=False) + "\n"
-        self.file.write(lines)
-        return item
-    def spider_closed(self, spider):
+
+        print("JsonExporterPipleline：自定义json导出__init__")
+        self.file = open('articleexport.json', 'wb')
+        self.exporter = JsonItemExporter(self.file, encoding="utf-8", ensure_ascii=False)
+        self.exporter.start_exporting()
+
+    def close_spider(self, spider):
+
+        print.info("spider_closed：关闭爬虫")
+        self.exporter.finish_exporting()
         self.file.close()
+
+    def process_item(self, item, spider):
+        self.exporter.export_item(item)
+
+        print.info("process_item：执行写入操作")
+        return item
+
+
+class ExcelPipeline(object):
+    """
+        导出数据到Excel
+    """
+    def __init__(self):
+        self.wb = Workbook()
+        self.ws = self.wb.active
+        self.ws_clean_data = self.wb.create_sheet("清洗数据")
+        self.ws_clean_data.append(['姓名', '年龄', '性别', '身份证'])
+
+    def do_add_data(self):
+        # self.ws_clean_data["F6"] = 66
+        # for row in self.ws_clean_data['A1:E5']:
+        #     for cell in row:
+        #         cell.value = "Test"
+        self.wb.save('./test.xlsx')
+
+    def process_item(self, item, spider):
+        line = [item['name'], item['price']]
+        self.ws_clean_data.append(line)
+        self.wb.save('./test.xlsx')
+        print.info("process_item：执行写入操作")
+        return item
+
+if __name__ == '__main__':
+    client = ExcelPipeline()
+    client.do_add_data()
 
 
 class MysqlPipeline(object):
@@ -92,30 +133,6 @@ class MysqlTwistedPipline(object):
         insert_sql, params = item.get_insert_sql()
         print (insert_sql, params)
         cursor.execute(insert_sql, params)
-
-
-class JsonExporterPipleline(object):
-    """
-    调用scrapy提供的json export导出json文件
-    """
-    def __init__(self):
-
-        print("JsonWithEncodingPipeline：自定义json导出__init__")
-        self.file = open('articleexport.json', 'wb')
-        self.exporter = JsonItemExporter(self.file, encoding="utf-8", ensure_ascii=False)
-        self.exporter.start_exporting()
-
-    def close_spider(self, spider):
-
-        print.info("spider_closed：关闭爬虫")
-        self.exporter.finish_exporting()
-        self.file.close()
-
-    def process_item(self, item, spider):
-        self.exporter.export_item(item)
-
-        print.info("process_item：执行写入操作")
-        return item
 
 
 class ArticleImagePipeline(ImagesPipeline):

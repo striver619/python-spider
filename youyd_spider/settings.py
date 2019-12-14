@@ -57,6 +57,7 @@ JSONRPC_ENABLED=True
 # 指定spider运行流程 执行哪些pipeline
 ITEM_PIPELINES = {
    'youyd_spider.pipelines.JsonExporterPipleline': 2,
+   # 'youyd_spider.pipelines.ExcelPipeline': 2,
    #  'scrapy.pipelines.images.ImagesPipeline': 1,
    #  'youyd_spider.pipelines.ArticleImagePipeline': 2,
    #   'youyd_spider.pipelines.MysqlTwistedPipline': 5,
