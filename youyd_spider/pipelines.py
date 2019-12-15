@@ -58,23 +58,12 @@ class ExcelPipeline(object):
         self.ws_clean_data = self.wb.create_sheet("清洗数据")
         self.ws_clean_data.append(['姓名', '年龄', '性别', '身份证'])
 
-    def do_add_data(self):
-        # self.ws_clean_data["F6"] = 66
-        # for row in self.ws_clean_data['A1:E5']:
-        #     for cell in row:
-        #         cell.value = "Test"
-        self.wb.save('./test.xlsx')
-
     def process_item(self, item, spider):
         line = [item['name'], item['price']]
         self.ws_clean_data.append(line)
         self.wb.save('./test.xlsx')
         print.info("process_item：执行写入操作")
         return item
-
-if __name__ == '__main__':
-    client = ExcelPipeline()
-    client.do_add_data()
 
 
 class MysqlPipeline(object):

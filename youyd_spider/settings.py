@@ -60,7 +60,7 @@ ITEM_PIPELINES = {
    # 'youyd_spider.pipelines.ExcelPipeline': 2,
    #  'scrapy.pipelines.images.ImagesPipeline': 1,
    #  'youyd_spider.pipelines.ArticleImagePipeline': 2,
-   #   'youyd_spider.pipelines.MysqlTwistedPipline': 5,
+     'youyd_spider.pipelines.MysqlTwistedPipline': 5,
    #  'youyd_spider.pipelines.ElasticSearchPipeline': 5
 
 }
