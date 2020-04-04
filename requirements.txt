@@ -42,7 +42,7 @@ nvidia-ml-py3==7.352.1
 opencv-python==4.1.1.26
 parsel==1.5.2
 pathlib==1.0.1
-Pillow==6.1.0
+Pillow==6.2.2
 protobuf==3.9.1
 psutil==5.6.3
 pyasn1==0.4.6
@@ -74,7 +74,7 @@ tensorflow-estimator==1.14.0
 termcolor==1.1.0
 toposort==1.5
 tqdm==4.35.0
-Twisted==19.7.0
+Twisted==20.3.0
 urllib3==1.25.3
 utils==0.9.0
 w3lib==1.21.0
