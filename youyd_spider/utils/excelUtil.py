@@ -78,12 +78,12 @@ class ExcelUtil(object):
 
     def get_conn(self):
         """ 获取mysql 的连接 """
-        conn = MySQLdb.connect('39.108.191.56', 'root', 'root', 'spider', charset="utf8", use_unicode=True)
+        conn = MySQLdb.connect('localhost', 'root', 'root', 'test', charset="utf8", use_unicode=True)
         return conn
 
 
 if __name__ == '__main__':
     client = ExcelUtil()
     # client.do_add_data()
-    # client.read_xls()
-    client.export_xls()
+    client.read_xls()
+    # client.export_xls()

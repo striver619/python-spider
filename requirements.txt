@@ -82,3 +82,8 @@ Werkzeug==0.15.6
 wordcloud==1.5.0
 wrapt==1.11.2
 zope.interface==4.6.0
+
+# echart_report_mysql
+pyecharts==1.8.1
+snapshot_phantomjs==0.0.3
+DBUtils==1.3
