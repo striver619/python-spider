@@ -3,15 +3,16 @@ __author__ = 'GuoGuang'
 
 """
 主函数 指定运行哪个脚本
+debug使用
 """
 from scrapy.cmdline import execute
 
 import sys
 import os
-
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-execute(["scrapy", "crawl", "FangTianXia"])
-# execute(["scrapy", "crawl", "zhihu"])
+if __name__ == "__main__":
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+    # execute(["scrapy", "crawl", "FangTianXia"])
+    execute(["scrapy", "crawl", "zhipin"])
 # execute(["scrapy", "crawl", "lagou"])
 
 # import scrapy

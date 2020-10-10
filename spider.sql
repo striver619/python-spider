@@ -1,19 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : 39.108.191.56
- Source Server Type    : MySQL
- Source Server Version : 80016
- Source Host           : 39.108.191.56:3306
- Source Schema         : spider
-
- Target Server Type    : MySQL
- Target Server Version : 80016
- File Encoding         : 65001
-
- Date: 26/08/2019 19:37:58
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
