@@ -2,6 +2,7 @@
 import codecs
 import json
 
+import MySQLdb
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.exporters import JsonItemExporter
 from twisted.enterprise import adbapi
@@ -24,27 +25,25 @@ class YouydSpiderPipeline(object):
         return item
 
 
-class JsonExporterPipleline(object):
+class JsonExporterPipeLine(object):
     """
     调用scrapy提供的json export导出json文件
     """
     def __init__(self):
 
-        print("JsonExporterPipleline：自定义json导出__init__")
+        logger.info("JsonExporterPipeLine：自定义json导出__init__")
         self.file = open('articleexport.json', 'wb')
         self.exporter = JsonItemExporter(self.file, encoding="utf-8", ensure_ascii=False)
         self.exporter.start_exporting()
 
     def close_spider(self, spider):
-
-        print.info("spider_closed：关闭爬虫")
+        logger.info("spider_closed：关闭爬虫")
         self.exporter.finish_exporting()
         self.file.close()
 
     def process_item(self, item, spider):
         self.exporter.export_item(item)
-
-        print.info("process_item：执行写入操作")
+        logger.info("process_item：执行写入操作")
         return item
 
 
@@ -62,28 +61,10 @@ class ExcelPipeline(object):
         line = [item['name'], item['price']]
         self.ws_clean_data.append(line)
         self.wb.save('./test.xlsx')
-        print.info("process_item：执行写入操作")
         return item
 
 
-class MysqlPipeline(object):
-    """
-    采用同步的机制写入mysql
-    """
-    def __init__(self):
-        self.conn = MySQLdb.connect('39.108.191.56', 'root', 'root', 'spider', charset="utf8", use_unicode=True)
-        self.cursor = self.conn.cursor()
-
-    def process_item(self, item, spider):
-        insert_sql = """
-            insert into jobbole_article(title, url, create_date, fav_nums)
-            VALUES (%s, %s, %s, %s)
-        """
-        self.cursor.execute(insert_sql, (item["title"], item["url"], item["create_date"], item["fav_nums"]))
-        self.conn.commit()
-
-
-class MysqlTwistedPipline(object):
+class MysqlPipeLine(object):
     """
     写入到mysql中。
     在 settings.py 中指定该功能是否启用
@@ -104,7 +85,6 @@ class MysqlTwistedPipline(object):
             use_unicode=True,
         )
         dbpool = adbapi.ConnectionPool('pymysql', **dbparams)
-
         return cls(dbpool)
 
     def process_item(self, item, spider):
@@ -113,12 +93,9 @@ class MysqlTwistedPipline(object):
         query.addErrback(self.handle_error, item, spider) #处理异常
 
     def handle_error(self, failure, item, spider):
-        # 处理异步插入的异常
         print(failure)
 
     def do_insert(self, cursor, item):
-        #执行具体的插入
-        #根据不同的item 构建不同的sql语句并插入到mysql中
         insert_sql, params = item.get_insert_sql()
         print (insert_sql, params)
         cursor.execute(insert_sql, params)
