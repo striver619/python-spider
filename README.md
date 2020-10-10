@@ -64,7 +64,7 @@ scrapy crawl {project/spiders/className}
 scrapy crawl FangTianXia
 ```
 
-如果需要执行爬虫数据存储方式请修改 settings.py-->ITEM_PIPELINES配置
+如果需要执行爬虫数据存储方式请修改 settings.py-->ITEM_PIPELINES配置，默认以JSON格式保存在当前路径下且保存到数据库
 
 ## Author
 
