@@ -71,12 +71,8 @@ class FangTianXiaSpiderItem(scrapy.Item):
     name = scrapy.Field()
     # String拼接
     # demo = scrapy.Field(lambda x:x+"-jobble", add_jobbole)
-    price = scrapy.Field(
-        input_processor=MapCompose(get_nums)
-    )
-    front_image_url = scrapy.Field(
-        output_processor=MapCompose(return_value)
-    )
+    price = scrapy.Field(input_processor=MapCompose(get_nums))
+    front_image_url = scrapy.Field(output_processor=MapCompose(return_value))
 
     def get_insert_sql(self):
         insert_sql = """
