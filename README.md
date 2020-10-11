@@ -52,6 +52,10 @@
 
 ```sh
 git clone https://github.com/GuoGuang/python_spider.git
+
+# install dependency
+pip install -r requirements.txt
+
 ```
 
 ## Usage
@@ -64,22 +68,19 @@ scrapy crawl {project/spiders/className}
 scrapy crawl FangTianXia
 ```
 
-如果需要执行爬虫数据存储方式请修改 settings.py-->ITEM_PIPELINES配置
+如果需要执行爬虫数据存储方式请修改 settings.py-->ITEM_PIPELINES配置，默认以JSON格式保存在当前路径下且保存到数据库
 
 ## Author
-
 👤 **GuoGuang**
 
 * Twitter: [@GuoGuang](https://twitter.com/GuoGuang)
 * Github: [@GuoGuang](https://github.com/GuoGuang)
 
 ## 🤝 Contributing
-
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/GuoGuang/python_spider/issues).
 
 ## Show your support
-
-Give a ⭐️ if this project helped you!
+如果这个项目对您有帮助，请给一个️⭐️
 
 ## 📝 License
 

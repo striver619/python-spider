@@ -4,8 +4,18 @@
 #
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/items.html
+from scrapy.loader import ItemLoader
+from scrapy.loader.processors import MapCompose, TakeFirst, Join
 
 import scrapy
+
+
+class ZhiPinItemLoader(ItemLoader):
+    """
+    继承ItemLoader，指定所有字段的默认输出使用TakeFirst函数
+    TakeFirst获取list中的第一个值
+    """
+    default_output_processor = TakeFirst()
 
 
 class ZhiPinItem(scrapy.Item):
@@ -42,3 +52,21 @@ class ZhiPinItem(scrapy.Item):
     detail = scrapy.Field()
     # 工作地点
     location = scrapy.Field()
+
+    def get_insert_sql(self):
+        insert_sql = """
+                INSERT INTO zhipin(pid,positionName,interviewer,workYear,salary,
+                        city,education,companyShortName,industryField,financeStage,
+                        companySize,time,updated_at,detail,location) VALUES
+                        (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                    """
+        params = (self["pid"], self["positionName"],
+                  self["interviewer"], self["workYear"],
+                  self["salary"], self["city"],
+                  self["education"], self["companyShortName"],
+                  self["industryField"], self["financeStage"],
+                  self["companySize"], self["time"],
+                  self["updated_at"], self["detail"],
+                  self["location"]
+                  )
+        return insert_sql, params

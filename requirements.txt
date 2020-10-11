@@ -42,7 +42,7 @@ nvidia-ml-py3==7.352.1
 opencv-python==4.1.1.26
 parsel==1.5.2
 pathlib==1.0.1
-Pillow==6.2.2
+Pillow==7.1.0
 protobuf==3.9.1
 psutil==5.6.6
 pyasn1==0.4.6
@@ -69,7 +69,7 @@ selenium==3.141.0
 service-identity==18.1.0
 six==1.12.0
 tensorboard==1.14.0
-tensorflow==1.15.2
+tensorflow==1.15.4
 tensorflow-estimator==1.14.0
 termcolor==1.1.0
 toposort==1.5
@@ -82,6 +82,7 @@ Werkzeug==0.15.6
 wordcloud==1.5.0
 wrapt==1.11.2
 zope.interface==4.6.0
+openpyxl==3.0.5
 
 # echart_report_mysql
 pyecharts==1.8.1
