@@ -37,7 +37,7 @@ class JsonExporterPipeLine(object):
         self.exporter.start_exporting()
 
     def close_spider(self, spider):
-        logger.info("spider_closed：关闭爬虫")
+        logger.info("json-exporter-pipeLine：closed")
         self.exporter.finish_exporting()
         self.file.close()
 
@@ -97,7 +97,7 @@ class MysqlPipeLine(object):
 
     def do_insert(self, cursor, item):
         insert_sql, params = item.get_insert_sql()
-        print (insert_sql, params)
+        print(insert_sql, params)
         cursor.execute(insert_sql, params)
 
 
