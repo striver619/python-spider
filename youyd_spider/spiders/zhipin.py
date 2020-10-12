@@ -15,6 +15,8 @@ class zhipin(scrapy.Spider):
     start_urls = ['https://www.zhipin.com/c101050100/?query=python']
 
     def parse(self, response):
+        print("proxy-->", response.meta['proxy'])
+        print("User-Agent-->", response.request.headers['User-Agent'])
         details = response.xpath("//div[@class='job-list']/ul//li")
         for detail in details:
             image_url = "xxxx"
